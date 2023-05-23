@@ -23,19 +23,18 @@ def getTrackNames(playlistJSON: dict) -> list[str]:
     for track in tracks:
 
         track_name = track["track"]["name"]
-        artists = track["track"]["artists"][0]["name"]
-        trackNames.append(f"{track_name} - {artists}")
+        artist_name = track["track"]["artists"][0]["name"]
+        trackNames.append( (track_name, artist_name) )
 
     return trackNames
-
-def getTrackNamesFromLink(playlistLink: str) -> list[str]:
-
-    return getTrackNames(getPlaylistJSON(playlistLink))
 
 if __name__=="__main__":
 
     link = str(input("Playlist Link: "))
 
-    for track in getTrackNamesFromLink(link):
+    playlist = getPlaylistJSON(link)
+    tracks = getTrackNames(playlist)
+
+    for track in tracks:
 
         print(track)
