@@ -15,7 +15,7 @@ def getPlaylistJSON(playlistLink: str) -> dict:
     playlist = sp.playlist(playlist_id)
     return playlist
 
-def getTrackNames(playlistJSON: dict) -> list[str]:
+def getTrackNames(playlistJSON: dict) -> list[tuple[str]]:
 
     tracks = playlistJSON["tracks"]["items"]
     trackNames = []
