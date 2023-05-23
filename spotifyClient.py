@@ -1,7 +1,6 @@
 
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-import json
 
 def getPlaylistJSON(playlistLink: str) -> dict:
 
@@ -36,7 +35,7 @@ def getTrackNamesFromLink(playlistLink: str) -> list[str]:
 if __name__=="__main__":
 
     link = str(input("Playlist Link: "))
-    
+
     for track in getTrackNamesFromLink(link):
 
         print(track)
