@@ -7,12 +7,12 @@ from pytube import YouTube
 # YouTube Data API key
 API_KEY = "AIzaSyAZNHbEWlckahgNDXHg0FcRs_j0XXp5lBU"
 
-def getYoutubeURL(songName: str, artist: str) -> None:
+def getFirstYoutubeURL(_searchQuery: str) -> str:
 
     youtube = build("youtube", "v3", developerKey=API_KEY)
 
     search_response = youtube.search().list(
-        q=f"{songName} {artist} lyrics",
+        q = _searchQuery,
         part="snippet",
         maxResults=1,  # Limit to one result
         type="video"
@@ -22,9 +22,12 @@ def getYoutubeURL(songName: str, artist: str) -> None:
     video_url = f"https://www.youtube.com/watch?v={video_id}"
     return video_url
 
-def downloadSong(url, dir, fileName):
+def downloadSong(youtubeURL, dir, filename) -> None:
 
-    pass
+    video = YouTube(youtubeURL)
+    audioStream = video.streams.filter(only_audio = True).first()
+
+    audioStream.download(output_path=dir, filename=filename)
 
 if __name__=="__main__":
 
@@ -32,5 +35,5 @@ if __name__=="__main__":
     artist = str(input("Artist Name: "))
     download_directory = "."
 
-    song_url = getYoutubeURL(song_name, artist)
-    print(song_url)
+    song_url = getFirstYoutubeURL(_searchQuery = f"{song_name} {artist} lyrics")
+    downloadSong(song_url, ".", "file.mp3")
