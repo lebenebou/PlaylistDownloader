@@ -36,4 +36,5 @@ if __name__=="__main__":
     download_directory = "."
 
     song_url = getFirstYoutubeURL(_searchQuery = f"{song_name} {artist} lyrics")
-    downloadSong(song_url, ".", "file.mp3")
+    downloadSong(song_url, ".", f"{song_name} - {artist}.mp3")
+    os.startfile(os.path.join(".", f"{song_name} - {artist}.mp3"))
